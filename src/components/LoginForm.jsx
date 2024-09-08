@@ -10,7 +10,7 @@ export const LoginForm = () => {
     password: "",
   });
   const { email, password } = formState;
-  const { updateUser } = useUser();
+  const { user, updateUser } = useUser();
   const navigate = useNavigate();
   const [authToken, setAuthToken] = useState(null);
   const [fetchUserData, setFetchUserData] = useState(false);
@@ -60,15 +60,20 @@ export const LoginForm = () => {
 
   useEffect(() => {
     if (responseData && Array.isArray(responseData) && responseData.length > 0 && authToken) {
-      const user = responseData[0];  
+      const userInfo = responseData[0];  
       updateUser({
-        id: user.id,
-        name: `${user?.first_name} ${user?.last_name}`,
+        id: userInfo.id,
+        name: `${userInfo?.first_name} ${userInfo?.last_name}`,
         token: authToken,
-        role: ((user.groups[0]==1||user.groups[0]==undefined)? "user" : user.groups[0]==2? "adminParking" : "other" ),
+        role: ((userInfo.groups[0]==1||userInfo.groups[0]==undefined)? "user" : (userInfo.groups[0]==2 ? "adminParking" : "other") ),
         loggedIn: true,
       });
-      navigate("/reservar");  
+      if(user.role =="user"){
+        navigate("/reservar");  
+      }else{
+        navigate("/registrarHorarios");  
+      }
+      
     }
   }, [responseData, authToken]);
   return (
