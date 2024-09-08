@@ -9,6 +9,8 @@ import { Layout } from "../components/Layout";
 import { ClientVehicles } from "../pages/ClientVehicles";
 import { VehicleRegister } from "../pages/VehicleRegister";
 import { PrivateRouter } from "./PrivateRouter";
+import { SchedulesParkingList } from "../pages/SchedulesParkingList";
+import {SchedulesOptionsParkingList } from "../pages/SchedulesOptionsParkingList";
 export const PagesRouter = () => {
   return (
       <Routes>          
@@ -19,7 +21,9 @@ export const PagesRouter = () => {
                 <Route path="/vehiculos" element={<PrivateRouter><ClientVehicles /></PrivateRouter>} />
                 <Route path="/registrarVehiculo" element={<PrivateRouter><VehicleRegister/></PrivateRouter>} />
                 <Route path="/reservar" element={<PrivateRouter><ClientReservation /></PrivateRouter>} />
-                <Route path="/reservaciones/" element={<PrivateRouter><Reservations /></PrivateRouter>} />             
+                <Route path="/reservaciones/" element={<PrivateRouter><Reservations /></PrivateRouter>} /> 
+                <Route path="/registrarHorarios/" element={<PrivateRouter><SchedulesParkingList/></PrivateRouter>} /> 
+                <Route path="/verHorariosParking/" element={<PrivateRouter><SchedulesOptionsParkingList/></PrivateRouter>} />                                         
            </Route>
            <Route path="*" element={<HomePage />} />
       </Routes>

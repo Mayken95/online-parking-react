@@ -72,36 +72,46 @@ export const LoginForm = () => {
   }, [responseData, authToken]);
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">Correo electrónico:</label>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            name="email"
-            value={email}
-            onChange={onInputChange}
-            aria-describedby="emailHelp"
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">Contraseña:</label>
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            name="password"
-            value={password}
-            onChange={onInputChange}
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">
-         Ingresar
-        </button>
-      </form>
+    <div className="container">
+      <div className="row mt-5">
+        <div className="mb-3 col-12">
+            <form onSubmit={handleSubmit}>
+              <div className="mb-3 col-12">
+                <label htmlFor="email" className="form-label fs-5">Correo electrónico:</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="email"
+                  name="email"
+                  value={email}
+                  onChange={onInputChange}
+                  aria-describedby="emailHelp"
+                />
+              </div>
+              <div className="mb-3 col-12">
+                <label htmlFor="password" className="form-label fs-5">Contraseña:</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="password"
+                  name="password"
+                  value={password}
+                  onChange={onInputChange}
+                />
+              </div>
+              <div className="d-flex justify-content-center mt-4">
+                  <button type="submit" className="btn btn-primary col-6 text-center">
+                    Ingresar
+                    </button>
+              </div>
+        </form>
 
-      {error && <div className="alert alert-danger mt-3">Error: {error}</div>}
+        {error && <div className="alert alert-danger mt-3">Error: {error}</div>}
+
+        </div>
+       
+      </div>
+     </div>
     </>
   );
 };

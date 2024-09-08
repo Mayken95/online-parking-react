@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React from 'react'
 import { NavLink } from 'react-router-dom';
 import { useUser } from '../hooks/useUser';
 // export const NavBar = () => {
@@ -61,6 +61,20 @@ export  const NavBar = () => {
                 className={ ({ isActive }) => `nav-link ${ isActive ? 'active' : '' }`}
                 to="/reservaciones">
                 Mis Reservas
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink 
+                className={ ({ isActive }) => `nav-link ${ isActive ? 'active' : '' }`}
+                to="/registrarHorarios">
+                Crear horarios
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink 
+                className={ ({ isActive }) => `nav-link ${ isActive ? 'active' : '' }`}
+                to="/verHorariosParking">
+                verHorariosParking
               </NavLink>
             </li>
           </ul>
