@@ -35,13 +35,13 @@ export  const NavBar = () => {
             <li className="nav-item">
               <a className="nav-link fs-5 text-primary-emphasis"><b>Hola { user?.name }!</b></a>
             </li>
-            {/* <li className="nav-item">
+            <li className="nav-item">
               <NavLink 
                 className={({ isActive }) => `nav-link ${ isActive ? 'active' : '' } fs-5`}
                 to="/">
-                Mi Perfil
+                Home
               </NavLink>
-            </li> */}
+            </li>
             <li className="nav-item">
               <NavLink 
                 className={ ({ isActive }) => `nav-link ${ isActive ? 'active' : '' } fs-5`}
