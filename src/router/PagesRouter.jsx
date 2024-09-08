@@ -18,12 +18,12 @@ export const PagesRouter = () => {
             <Route element={<Layout />}>              
                 <Route path="/Login/" element={ <Login />} />
                 <Route path="/registrar/" element={<Register />} />
-                <Route path="/vehiculos" element={<PrivateRouter><ClientVehicles /></PrivateRouter>} />
-                <Route path="/registrarVehiculo" element={<PrivateRouter><VehicleRegister/></PrivateRouter>} />
-                <Route path="/reservar" element={<PrivateRouter><ClientReservation /></PrivateRouter>} />
-                <Route path="/reservaciones/" element={<PrivateRouter><Reservations /></PrivateRouter>} /> 
-                <Route path="/registrarHorarios/" element={<PrivateRouter><SchedulesParkingList/></PrivateRouter>} /> 
-                <Route path="/verHorariosParking/" element={<PrivateRouter><SchedulesOptionsParkingList/></PrivateRouter>} />                                         
+                <Route path="/vehiculos" element={<PrivateRouter allowedRoles={['user']}><ClientVehicles /></PrivateRouter>} />
+                <Route path="/registrarVehiculo" element={<PrivateRouter allowedRoles={['user']}><VehicleRegister/></PrivateRouter>} />
+                <Route path="/reservar" element={<PrivateRouter allowedRoles={['user']}><ClientReservation /></PrivateRouter>} />
+                <Route path="/reservaciones" element={<PrivateRouter allowedRoles={['user']}><Reservations /></PrivateRouter>} /> 
+                <Route path="/registrarHorarios/" element={<PrivateRouter allowedRoles={['adminParking']}><SchedulesParkingList/></PrivateRouter>} /> 
+                <Route path="/verHorariosParking/" element={<PrivateRouter  allowedRoles={['adminParking']}><SchedulesOptionsParkingList/></PrivateRouter>} />                                         
            </Route>
            <Route path="*" element={<HomePage />} />
       </Routes>

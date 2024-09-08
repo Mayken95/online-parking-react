@@ -65,6 +65,7 @@ export const LoginForm = () => {
         id: user.id,
         name: `${user?.first_name} ${user?.last_name}`,
         token: authToken,
+        role: ((user.groups[0]==1||user.groups[0]==undefined)? "user" : user.groups[0]==2? "adminParking" : "other" ),
         loggedIn: true,
       });
       navigate("/reservar");  

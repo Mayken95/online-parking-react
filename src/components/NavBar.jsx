@@ -33,46 +33,46 @@ export  const NavBar = () => {
         <div className="collapse navbar-collapse d-flex" id="navbarNav">
           <ul className="navbar-nav flex-grow-1">
             <li className="nav-item">
-              <a className="nav-link">Hola { user?.name }!</a>
+              <a className="nav-link fs-5 text-primary-emphasis"><b>Hola { user?.name }!</b></a>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <NavLink 
-                className={ ({ isActive }) => `nav-link ${ isActive ? 'active' : '' }`}
+                className={({ isActive }) => `nav-link ${ isActive ? 'active' : '' } fs-5`}
                 to="/">
                 Mi Perfil
               </NavLink>
-            </li>
+            </li> */}
             <li className="nav-item">
               <NavLink 
-                className={ ({ isActive }) => `nav-link ${ isActive ? 'active' : '' }`}
+                className={ ({ isActive }) => `nav-link ${ isActive ? 'active' : '' } fs-5`}
                 to="/vehiculos">
                 Vehículos
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink 
-                className={ ({ isActive }) => `nav-link ${ isActive ? 'active' : '' }`}
+                className={ ({ isActive }) => `nav-link ${ isActive ? 'active' : '' } fs-5`}
                 to="/reservar">
                 Reservar
               </NavLink>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <NavLink 
                 className={ ({ isActive }) => `nav-link ${ isActive ? 'active' : '' }`}
                 to="/reservaciones">
                 Mis Reservas
               </NavLink>
-            </li>
+            </li> */}
             <li className="nav-item">
               <NavLink 
-                className={ ({ isActive }) => `nav-link ${ isActive ? 'active' : '' }`}
+                className={ ({ isActive }) => `nav-link ${ isActive ? 'active' : '' } fs-5`}
                 to="/registrarHorarios">
                 Crear horarios
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink 
-                className={ ({ isActive }) => `nav-link ${ isActive ? 'active' : '' }`}
+                className={ ({ isActive }) => `nav-link ${ isActive ? 'active' : '' } fs-5`}
                 to="/verHorariosParking">
                 verHorariosParking
               </NavLink>
@@ -80,7 +80,11 @@ export  const NavBar = () => {
           </ul>
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link" href="#">Cerrar Sesión</a>
+              <NavLink 
+                className={ ({ isActive }) => `nav-link ${ isActive ? 'active' : '' } fs-5`}
+                to="/">
+              Cerrar Sesión
+              </NavLink>
             </li>
           </ul>
         </div>
