@@ -12,7 +12,7 @@ import { PrivateRouter } from "./PrivateRouter";
 export const PagesRouter = () => {
   return (
       <Routes>          
-            <Route  path="/" index exact element={<HomePage />} />
+            <Route path="/" index exact element={<HomePage />} />
             <Route element={<Layout />}>              
                 <Route path="/Login/" element={ <Login />} />
                 <Route path="/registrar/" element={<Register />} />

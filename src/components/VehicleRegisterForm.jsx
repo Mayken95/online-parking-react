@@ -1,11 +1,11 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { UserContext } from "../context/UserContext";
+import React, { useState, useEffect } from 'react';
 import { useForm } from "../hooks/useForm";
 import { useFetchWithAuthTrigger } from "../hooks/useFetchWithAuthTrigger";
 import { useNavigate } from "react-router-dom";
+import { useUser } from '../hooks/useUser';
 
 export const VehicleRegisterForm = () => {
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
   const { formState, onInputChange } = useForm({
     plate: "",
     color: "",

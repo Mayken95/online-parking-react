@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 import { NavLink } from 'react-router-dom';
-import { UserContext } from "../context/UserContext";
+import { useUser } from '../hooks/useUser';
 // export const NavBar = () => {
 //   return (
 //     <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -25,7 +25,7 @@ import { UserContext } from "../context/UserContext";
 // };
 
 export  const NavBar = () => {
-  const { user } = useContext(UserContext); 
+  const { user } = useUser(); 
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
