@@ -26,20 +26,25 @@ export const NavBar = () => {
                 Home
               </NavLink>
             </li>
+            {user.role == "user" && (
             <li className="nav-item">
               <NavLink 
                 className={({ isActive }) => `nav-link ${ isActive ? 'active' : '' } fs-5 text-light`}
                 to="/vehiculos">
                 Vehículos
               </NavLink>
-            </li>
+            </li> 
+            )}
+            {user.role == "user" && (
             <li className="nav-item">
               <NavLink 
                 className={({ isActive }) => `nav-link ${ isActive ? 'active' : '' } fs-5 text-light`}
                 to="/reservar">
                 Reservar
               </NavLink>
-            </li>
+            </li> 
+            )}
+            {user.role == "adminParking" && (
             <li className="nav-item">
               <NavLink 
                 className={({ isActive }) => `nav-link ${ isActive ? 'active' : '' } fs-5 text-light`}
@@ -47,6 +52,8 @@ export const NavBar = () => {
                 Crear horarios
               </NavLink>
             </li>
+             )}
+            {user.role == "adminParking" && (
             <li className="nav-item">
               <NavLink 
                 className={({ isActive }) => `nav-link ${ isActive ? 'active' : '' } fs-5 text-light`}
@@ -54,6 +61,7 @@ export const NavBar = () => {
                 Ver Horarios Parking
               </NavLink>
             </li>
+            )}
           </ul>
           <ul className="navbar-nav">
             <li className="nav-item">

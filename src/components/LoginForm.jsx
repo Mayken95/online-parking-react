@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "../hooks/useForm";
 import { useUser } from "../hooks/useUser";
 import { useFetchWithAuth } from "../hooks/useFetchWithAuth";
@@ -10,11 +10,12 @@ export const LoginForm = () => {
     password: "",
   });
   const { email, password } = formState;
-  const { user, updateUser } = useUser();
+  const {user, updateUser } = useUser();
   const navigate = useNavigate();
   const [authToken, setAuthToken] = useState(null);
   const [fetchUserData, setFetchUserData] = useState(false);
-  
+  const [loginError, setLoginError] = useState(""); // Estado para almacenar el mensaje de error
+
   useEffect(() => {
     const storedToken = localStorage.getItem('authToken');
     if (storedToken) {
@@ -24,6 +25,7 @@ export const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoginError(""); // Limpiar el estado del error al enviar nuevamente
 
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/token-auth/`, {
@@ -31,7 +33,7 @@ export const LoginForm = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username:email, password }),
+        body: JSON.stringify({ username: email, password }),
       });
 
       if (response.status >= 400 && response.status < 600) {
@@ -43,20 +45,17 @@ export const LoginForm = () => {
       localStorage.setItem('authToken', token);  // Guardar en localStorage
       setAuthToken(token)
       setFetchUserData(true); 
-      console.log("Este es el tokennnn "+token)
     } catch (error) {
+      setLoginError(error.message);  // Actualizar el estado del error
       console.error("Error en el login:", error.message);
     }
   };
 
- // Solo ejecutar el fetch si hay token y email
   const { loading, error, responseData } = useFetchWithAuth(
     authToken && fetchUserData && email ? `${process.env.REACT_APP_API_URL}/authentication/users/?email=${encodeURIComponent(email)}` : null,
     authToken, 
     'GET'
   );
-
-
 
   useEffect(() => {
     if (responseData && Array.isArray(responseData) && responseData.length > 0 && authToken) {
@@ -76,48 +75,46 @@ export const LoginForm = () => {
       
     }
   }, [responseData, authToken]);
+
   return (
-    <>
-    <div className="container">
-      <div className="row mt-5">
-        <div className="mb-3 col-12">
-            <form onSubmit={handleSubmit}>
-              <div className="mb-3 col-12">
-                <label htmlFor="email" className="form-label fs-5">Correo electrónico:</label>
-                <input
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  name="email"
-                  value={email}
-                  onChange={onInputChange}
-                  aria-describedby="emailHelp"
-                />
-              </div>
-              <div className="mb-3 col-12">
-                <label htmlFor="password" className="form-label fs-5">Contraseña:</label>
-                <input
-                  type="password"
-                  className="form-control"
-                  id="password"
-                  name="password"
-                  value={password}
-                  onChange={onInputChange}
-                />
-              </div>
-              <div className="d-flex justify-content-center mt-4">
-                  <button type="submit" className="btn btn-primary col-6 text-center">
-                    Ingresar
-                    </button>
-              </div>
-        </form>
+    <div className="container d-flex justify-content-center align-items-center mt-5 vh-90">
+      <div className="card shadow p-4" style={{ maxWidth: '800px', width: '100%' }}>
+        <div className="card-body">
+          <h2 className="card-title text-center mb-4">Iniciar Sesión</h2>
+          <p className="lead text-center mb-4">Ingresa tus credenciales para acceder a tu cuenta.</p>
 
-        {error && <div className="alert alert-danger mt-3">Error: {error}</div>}
+          {loginError && <div className="alert alert-danger mt-3">Error: {loginError}</div>}  {/* Mostrar error */}
 
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label fs-5">Correo electrónico:</label>
+              <input
+                type="email"
+                className="form-control"
+                id="email"
+                name="email"
+                value={email}
+                onChange={onInputChange}
+                aria-describedby="emailHelp"
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="password" className="form-label fs-5">Contraseña:</label>
+              <input
+                type="password"
+                className="form-control"
+                id="password"
+                name="password"
+                value={password}
+                onChange={onInputChange}
+              />
+            </div>
+            <div className="d-grid gap-2 mt-4">
+              <button type="submit" className="btn btn-primary btn-block">Ingresar</button>
+            </div>
+          </form>
         </div>
-       
       </div>
-     </div>
-    </>
+    </div>
   );
 };
