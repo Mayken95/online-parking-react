@@ -10,7 +10,7 @@ export const LoginForm = () => {
     password: "",
   });
   const { email, password } = formState;
-  const {user, updateUser } = useUser();
+  const {user, updateUser, logoutUser } = useUser();
   const navigate = useNavigate();
   const [authToken, setAuthToken] = useState(null);
   const [fetchUserData, setFetchUserData] = useState(false);
@@ -66,16 +66,25 @@ export const LoginForm = () => {
         token: authToken,
         role: ((userInfo.groups[0]==1||userInfo.groups[0]==undefined)? "user" : (userInfo.groups[0]==2 ? "adminParking" : "other") ),
         loggedIn: true,
-      });
-      if(user.role =="user"){
-        navigate("/reservar");  
-      }else{
-        navigate("/registrarHorarios");  
-      }
-      
+      });      
     }
   }, [responseData, authToken]);
 
+  useEffect(() => {
+    if (user?.loggedIn && authToken) {
+      if (user.role === "user") {
+        navigate("/reservar");
+      }else if (user.role === "adminParking") {
+        navigate("/registrarHorarios");
+      }
+    }
+  }, [user, authToken]);
+  useEffect(() => {
+    if (!authToken) {
+      localStorage.removeItem('authToken');
+      logoutUser();
+    }
+  }, [authToken]);
   return (
     <div className="container d-flex justify-content-center align-items-center mt-5 vh-90">
       <div className="card shadow p-4" style={{ maxWidth: '800px', width: '100%' }}>
