@@ -11,6 +11,7 @@ import { VehicleRegister } from "../pages/VehicleRegister";
 import { PrivateRouter } from "./PrivateRouter";
 import { SchedulesParkingList } from "../pages/SchedulesParkingList";
 import {SchedulesOptionsParkingList } from "../pages/SchedulesOptionsParkingList";
+
 export const PagesRouter = () => {
   return (
       <Routes>          
@@ -21,7 +22,7 @@ export const PagesRouter = () => {
                 <Route path="/vehiculos" element={<PrivateRouter allowedRoles={['user']}><ClientVehicles /></PrivateRouter>} />
                 <Route path="/registrarVehiculo" element={<PrivateRouter allowedRoles={['user']}><VehicleRegister/></PrivateRouter>} />
                 <Route path="/reservar" element={<PrivateRouter allowedRoles={['user']}><ClientReservation /></PrivateRouter>} />
-                <Route path="/reservaciones" element={<PrivateRouter allowedRoles={['user']}><Reservations /></PrivateRouter>} /> 
+                <Route path="/reservaciones" element={<PrivateRouter allowedRoles={['user','adminParking']}><Reservations /></PrivateRouter>} /> 
                 <Route path="/registrarHorarios/" element={<PrivateRouter allowedRoles={['adminParking']}><SchedulesParkingList/></PrivateRouter>} /> 
                 <Route path="/verHorariosParking/" element={<PrivateRouter  allowedRoles={['adminParking']}><SchedulesOptionsParkingList/></PrivateRouter>} />                                         
            </Route>

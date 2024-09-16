@@ -44,6 +44,15 @@ export const NavBar = () => {
               </NavLink>
             </li> 
             )}
+             {(user.role == "user" || user.role == "adminParking")  && (
+            <li className="nav-item">
+              <NavLink 
+                className={({ isActive }) => `nav-link ${ isActive ? 'active' : '' } fs-5 text-light`}
+                to="/reservaciones">
+                Reservaciones
+              </NavLink>
+            </li> 
+            )}
             {user.role == "adminParking" && (
             <li className="nav-item">
               <NavLink 
