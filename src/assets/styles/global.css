@@ -1,0 +1,11 @@
+.my-table .rdt_TableRow:nth-child(odd) {
+    background-color: #ffffff; /* Blanco */
+  }
+  
+  .my-table .rdt_TableRow:nth-child(even) {
+    background-color: #f8f9fa; /* Gris claro */
+  }
+  .link-name{
+    text-decoration: none;
+    color:#ffffff;
+  }

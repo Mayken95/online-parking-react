@@ -1,0 +1,9 @@
+.nav-item .link-name,
+.link-name-text{
+    text-decoration: none;
+    color:#ffffff;
+  }
+
+.link-name-text:hover{
+ color: #0d6efd;
+}

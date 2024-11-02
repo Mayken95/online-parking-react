@@ -4,9 +4,10 @@ export const useFetchWithAuthTrigger = (url, token, method = 'GET', data = null,
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [responseData, setResponseData] = useState(null);
+  const [internalTrigger, setInternalTrigger] = useState(trigger); // Controla el trigger internamente
 
   useEffect(() => {
-    if (!trigger || !url || !token) return; // Controla la ejecución del fetch
+    if (!internalTrigger || !url || !token) return; // Solo ejecuta si internalTrigger está activo
 
     const fetchData = async () => {
       setLoading(true);
@@ -36,11 +37,17 @@ export const useFetchWithAuthTrigger = (url, token, method = 'GET', data = null,
         setError(err.message);
       } finally {
         setLoading(false);
+        setInternalTrigger(false); // Desactiva el trigger despuésss de la solicitud
       }
     };
 
     fetchData();
-  }, [url, token, method, data, trigger]);  // Agrega `trigger` como dependencia
+  }, [url, token, method, data, internalTrigger]); 
+
+  // Permite al componente padre activar el trigger
+  useEffect(() => {
+    if (trigger) setInternalTrigger(true);
+  }, [trigger]);
 
   return { loading, error, responseData };
 };

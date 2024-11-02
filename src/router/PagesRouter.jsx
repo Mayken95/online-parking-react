@@ -1,16 +1,20 @@
 import React from "react";
 import {Route, Routes } from "react-router-dom";
-import { HomePage } from "../pages/HomePage";
-import { Login } from "../pages/Login";
-import { Register } from "../pages/Register";
-import { ClientReservation } from "../pages/ClientReservation";
-import { Reservations } from "../pages/Reservations";
-import { Layout } from "../components/Layout";
-import { ClientVehicles } from "../pages/ClientVehicles";
-import { VehicleRegister } from "../pages/VehicleRegister";
 import { PrivateRouter } from "./PrivateRouter";
-import { SchedulesParkingList } from "../pages/SchedulesParkingList";
-import {SchedulesOptionsParkingList } from "../pages/SchedulesOptionsParkingList";
+import { Layout } from "../components/Layout";
+import { HomePage, 
+         Login,
+         Register,
+         ClientReservation,
+         Reservations,
+         ClientVehicles,
+         VehicleRegister,
+         SchedulesParkingList,
+         SchedulesOptionsParkingList,
+         Profile
+
+ } from "../pages";
+
 
 export const PagesRouter = () => {
   return (
@@ -25,6 +29,7 @@ export const PagesRouter = () => {
                 <Route path="/reservaciones" element={<PrivateRouter allowedRoles={['user','adminParking']}><Reservations /></PrivateRouter>} /> 
                 <Route path="/registrarHorarios/" element={<PrivateRouter allowedRoles={['adminParking']}><SchedulesParkingList/></PrivateRouter>} /> 
                 <Route path="/verHorariosParking/" element={<PrivateRouter  allowedRoles={['adminParking']}><SchedulesOptionsParkingList/></PrivateRouter>} />                                         
+                <Route path="/perfil" element={<PrivateRouter allowedRoles={['user','adminParking']}><Profile /></PrivateRouter>} /> 
            </Route>
            <Route path="*" element={<HomePage />} />
       </Routes>

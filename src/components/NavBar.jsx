@@ -1,6 +1,7 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { useUser } from '../hooks/useUser';
+import '../assets/styles/NavBar.css';
 
 export const NavBar = () => {
   const { user } = useUser();
@@ -13,11 +14,11 @@ export const NavBar = () => {
         </NavLink>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
-        </button>
+        </button>      
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav me-auto">
             <li className="nav-item">
-              <span className="nav-link fs-5 text-light"><b>¡Hola, {user?.name}!</b></span>
+              <span className="nav-link fs-5 text-light link-name"><b>¡Hola, <Link className="link-name-text" to="/perfil">{user?.name}!</Link></b></span>
             </li>
             <li className="nav-item">
               <NavLink 

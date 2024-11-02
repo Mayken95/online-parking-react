@@ -1,0 +1,30 @@
+// export { default as HomePage } from './HomePage';
+// export { default as Login } from './Login';
+// export { default as Register } from './Register';
+// export { default as ClientReservation } from './ClientReservation';
+// export { default as Reservations } from './Reservations';
+// export { default as ClientVehicles } from './ClientVehicles';
+// export { default as VehicleRegister } from "./VehicleRegister";
+// export { default as SchedulesParkingList } from "./SchedulesParkingList";
+// export { default as SchedulesOptionsParkingList } from "./SchedulesOptionsParkingList";
+
+export { HomePage } from './HomePage/HomePage';
+export { Login } from './Login/Login';
+export { Register } from './Register/Register';
+export { ClientReservation } from './ClientReservation/ClientReservation';
+export { Reservations } from './Reservations/Reservations';
+export { ClientVehicles } from './ClientVehicles/ClientVehicles';
+export { VehicleRegister } from "./VehicleRegister/VehicleRegister";
+export { SchedulesParkingList } from "./SchedulesParkingList/SchedulesParkingList";
+export { SchedulesOptionsParkingList } from "./SchedulesOptionsParkingList/SchedulesOptionsParkingList";
+export { Profile } from "./Profile/Profile";
+
+// export * from './HomePage';
+// export * from './Login';
+// export * from './Register';
+// export * from './ClientReservation';
+// export * from './Reservations';
+// export * from './ClientVehicles';
+// export * from "./VehicleRegister";
+// export * from "./SchedulesParkingList";
+// export * from "./SchedulesOptionsParkingList";
