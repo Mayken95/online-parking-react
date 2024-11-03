@@ -1,7 +1,13 @@
 import { useUser } from '../../hooks/useUser';
 import profileImage from '../../assets/images/profile.png'; 
+import { useNavigate } from 'react-router-dom';
 export const Profile =  () => {
     const { user } = useUser();
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+      navigate('/vehiculos'); 
+    };
 
     return (
       <div className="container my-5">
@@ -24,15 +30,11 @@ export const Profile =  () => {
                 <h3 className="mb-3 text-primary">{user?.name}</h3>
                 <p>{user?.email}</p>
   
-                {/* Breve bio */}
-                <div className="mb-3">
-                  <p>Breve bio o descripción del usuario.</p>
-                </div>
-  
-                {/* Botón de acción */}
-                <button className="btn bg-primary text-white">
-                  Editar Perfil
+                {user.role=="user"&&(
+                <button className="btn bg-primary text-white" onClick={handleClick}>
+                  Mis Vehículos
                 </button>
+                )}
               </div>
             </div>
           </div>

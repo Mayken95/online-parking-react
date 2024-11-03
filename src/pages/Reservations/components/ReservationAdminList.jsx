@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useFetchWithAuthTrigger } from "../../../hooks/useFetchWithAuthTrigger";
 import { useUser } from '../../../hooks/useUser';
-import { ReservationsParkingTable } from './ReservationsParkingTable';
+//import { ReservationsParkingTable } from './ReservationsParkingTable';
+import { ReservationsParkingTable2 } from './ReservationsParkingTable2';
 import DatePicker from 'react-datepicker';
+import { ConfirmationModal } from './ConfirmationModal';
+import {SuccessModal} from './SuccessModal';
+import {ErrorModal} from './ErrorModal';
+
 import 'react-datepicker/dist/react-datepicker.css';
 
 export const ReservationsAdminList = () => {
@@ -15,6 +20,11 @@ export const ReservationsAdminList = () => {
   const [searchAction, setSearchAction] = useState(false);
 
   const [fetchUserData, setFetchUserData] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [reservationToDelete, setReservationToDelete] = useState(null);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+
 
   const { loading, error, responseData } = useFetchWithAuthTrigger(
     `${process.env.REACT_APP_API_URL}/organization/parkings/?user_id=${user.id}`,
@@ -74,8 +84,52 @@ export const ReservationsAdminList = () => {
     fetchReservationsByParkingAndDate();
   };
 
-  const HandleDelete = (reservationId) => {
-    alert(`Me conecto al api y la elimino ${reservationId}`);
+  const handleOpenModal = (reservationId) => {
+    setReservationToDelete(reservationId);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setReservationToDelete(null);
+  };
+
+  const HandleDelete = async (reservationId) => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/accounting/reservations/${reservationToDelete}/cancel/`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${user.token}`, 
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) throw new Error('Error al eliminar la reserva');
+
+     // alert('Reserva eliminada con éxito.');
+      setShowModal(false);
+      setShowErrorModal(false);
+      setShowSuccessModal(true);
+
+      setFetchUserData(false); // Desactiva primero
+      setTimeout(() => setFetchUserData(true), 0); // Activa nuevamente
+    } catch (error) {
+      console.error(error);
+      setShowErrorModal(true);
+      setShowModal(false);
+      setShowSuccessModal(false);
+     // alert('Hubo un error al eliminar la reserva.');
+    }
+  };
+
+  const handleCloseSuccessModal = () => {
+    setShowSuccessModal(false);
+    setShowErrorModal(false);
+  };
+
+  const handleCloseErrorModal = () => {
+    setShowErrorModal(false);
+    setShowSuccessModal(false);
   };
 
 
@@ -143,13 +197,30 @@ export const ReservationsAdminList = () => {
           </div>
         </div>
         {searchAction && (
-          <ReservationsParkingTable
+          <ReservationsParkingTable2
             data={reservations}
             onDelete={HandleDelete}
+            openModal={handleOpenModal}
             
           />
         )}
       </div>
+      {showModal && (<ConfirmationModal  handleCloseModal={handleCloseModal}
+                             handleDelete={HandleDelete}/>)}
+
+      {showSuccessModal && (
+                <SuccessModal
+                  handleClose={handleCloseSuccessModal}
+                  message="La Reserva fue cancelada con éxito."
+                />
+              )}
+
+      {showErrorModal && (
+        <ErrorModal
+          handleCloseError={handleCloseErrorModal}
+          message="Hubo un error al eliminar la reserva."
+        />
+      )}
     </>
   );
 };

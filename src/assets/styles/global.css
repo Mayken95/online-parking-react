@@ -1,11 +1,22 @@
 .my-table .rdt_TableRow:nth-child(odd) {
-    background-color: #ffffff; /* Blanco */
+    background-color: #ffffff; 
   }
   
-  .my-table .rdt_TableRow:nth-child(even) {
-    background-color: #f8f9fa; /* Gris claro */
-  }
-  .link-name{
-    text-decoration: none;
-    color:#ffffff;
-  }
+.my-table .rdt_TableRow:nth-child(even) {
+  background-color: #f8f9fa; 
+}
+
+.hDPlLz{
+  display: flex;
+  justify-content: flex-start!important;
+}
+
+.cPHygs{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.link-name{
+  text-decoration: none;
+  color:#ffffff;
+}

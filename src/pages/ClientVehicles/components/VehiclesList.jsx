@@ -26,12 +26,18 @@ export const VehiclesList = () => {
   const useHandleDelete = (vehicleId) => {
     setDeletedVehicles((prev) => [...prev, vehicleId]);
     triggerDelete(vehicleId); 
-    
   };
 
   const visibleVehicles = vehicles ? vehicles.filter(vehicle => !deletedVehicles.includes(vehicle.id)):[];
 
-  if (loading) return <p>Cargando vehículos...</p>;
+  //if (loading) return <p>Cargando vehículos...</p>;
+  if (loading) return (
+    <div className="modal-overlay">
+      <div className="modal-content">
+        <h3>Cargando vehículos...</h3>
+      </div>
+    </div>
+  );
   if (error) return <p>Error: {error}</p>;
 
   return (

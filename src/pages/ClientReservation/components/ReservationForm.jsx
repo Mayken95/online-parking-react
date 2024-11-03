@@ -20,7 +20,7 @@ export const ReservationForm = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState(null);
   const { loading, error, responseData: vehicles } = useFetchWithAuthTrigger(
-    `${process.env.REACT_APP_API_URL}/vehicles/?plate=&user__id=${user?.id}`,
+    `${process.env.REACT_APP_API_URL}/vehicles/?user__id=${user?.id}`,
     user?.token,
     'GET',
     null,
@@ -62,7 +62,7 @@ export const ReservationForm = () => {
 
     const fetchSchedulesParkings = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/organization/parkings/${selectedParking}/available_schedules/`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/organization/parkingschedules/${selectedParking}/future-schedules/`);
         const data = await response.json();
         setSchedules(data);
       } catch (error) {
@@ -97,7 +97,7 @@ export const ReservationForm = () => {
         user: selectedVehicle?.user.id
       },
       state:"A",
-      parking: selectedParking,
+      parking_id: selectedParking,
       parkingSchedule: selectedSchedule
     };
 

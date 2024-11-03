@@ -14,7 +14,7 @@ export const SchedulesOptionsList = () => {
 
   useEffect(() => {
     const fetchUserParkings = async () => {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/organization/parkings?user__id=${user.id}`);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/organization/parkings?user_id=${user.id}`);
       const data = await response.json();
       setParkings(data);
     };

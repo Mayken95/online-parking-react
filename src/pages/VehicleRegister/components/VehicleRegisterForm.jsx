@@ -11,7 +11,7 @@ export const VehicleRegisterForm = () => {
     color: "",
   });
   const { plate, color } = formState;
-  const [fetchUserData, setFetchUserData] = useState(false);  // Controla el trigger del fetch
+  const [fetchUserData, setFetchUserData] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const navigate = useNavigate();
   const authToken = user?.token;
@@ -21,38 +21,46 @@ export const VehicleRegisterForm = () => {
   };
 
   const { loading, error, responseData } = useFetchWithAuthTrigger(
-    fetchUserData ? `${process.env.REACT_APP_API_URL}/vehicles/` : null,  // Solo pasa la URL si fetchUserData es true
-    authToken, 
+    fetchUserData ? `${process.env.REACT_APP_API_URL}/vehicles/` : null,
+    authToken,
     'POST',
     { user: user?.id, plate, color },
-    fetchUserData  
+    fetchUserData
   );
 
   useEffect(() => {
-      if (error) {
-        if (error!=null) {
-          setErrorMessage("El vehículo ya se encuentra registrado.");
-          setFetchUserData(false);
-        }
-        setFetchUserData(false);
-      } else if(responseData) {
-        setErrorMessage(null);  
-        setFetchUserData(false);
-        navigate("/vehiculos");
-      }
-  }, [responseData, error, authToken, navigate]);
+    if (!fetchUserData) return;
+    setFetchUserData(false);
+
+    if (error) {
+      setErrorMessage("El vehículo ya se encuentra registrado.");
+    } else if (responseData) {
+      setErrorMessage(null);
+      navigate("/vehiculos");
+    }
+  }, [responseData, error, fetchUserData, navigate]);
+
+  useEffect(() => {
+    if (responseData && error==null){
+      navigate("/vehiculos");
+    }else if(error!=null){
+      setErrorMessage("El vehículo ya se encuentra registrado.");
+      return;
+    }
+    
+  }, [responseData, error]);
 
   const handleSubmit = (e) => {
-    e.preventDefault();  
-    setFetchUserData(false);  
+    e.preventDefault();
+
     if (!areAllFieldsFilled()) {
       setErrorMessage("Por favor complete todos los campos.");
       return;
     }
 
     if (authToken) {
-      setErrorMessage(null);  
-      setFetchUserData(true);  
+      setErrorMessage(null);
+      setFetchUserData(true); // Activa la llamada a la API en el useEffect
     }
   };
 
@@ -101,7 +109,6 @@ export const VehicleRegisterForm = () => {
             </div>
           </form>
           {errorMessage && <div className="alert alert-danger mt-3">{errorMessage}</div>}
-          {/* {error && <p className="text-danger">{error}</p>} */}
         </div>
       </div>
     </>
