@@ -1,6 +1,6 @@
 import React, {useEffect, useState } from 'react';
 import { useUser } from '../../../hooks/useUser';
-import { ScheduleOptionsParkingTable } from './ScheduleOptionsParkingTable';
+import { ScheduleOptionsParkingTable2 } from './ScheduleOptionsParkingTable2';
 
 export const SchedulesOptionsList = () => {
   const { user } = useUser(); // Obtener el usuario desde el contexto
@@ -65,7 +65,7 @@ export const SchedulesOptionsList = () => {
       <div className="mb-3">
         <label>Horarios del parqueadero:</label>
         {schedules.length > 0 ? (
-            <ScheduleOptionsParkingTable dataSchedules={schedules} />
+            <ScheduleOptionsParkingTable2 dataSchedules={schedules} />
           ) : (
             <p>No hay horarios disponibles para este parqueo.</p>
           )}

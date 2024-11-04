@@ -110,9 +110,7 @@ export const ReservationsAdminList = () => {
       setShowModal(false);
       setShowErrorModal(false);
       setShowSuccessModal(true);
-
-      setFetchUserData(false); // Desactiva primero
-      setTimeout(() => setFetchUserData(true), 0); // Activa nuevamente
+      handleSearch();
     } catch (error) {
       console.error(error);
       setShowErrorModal(true);
@@ -201,6 +199,7 @@ export const ReservationsAdminList = () => {
             data={reservations}
             onDelete={HandleDelete}
             openModal={handleOpenModal}
+            onPaymentSuccess={handleSearch}
             
           />
         )}

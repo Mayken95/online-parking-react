@@ -56,6 +56,22 @@ export const ReservationForm = () => {
     }
   };
 
+  const handleScheduleChange = (e) => {
+    const selectedScheduleId = parseInt(e.target.value);
+
+    setSelectedSchedule(selectedScheduleId);
+
+    const chosenSchedule = schedules.find(schedule => schedule.parkingschedule_id === selectedScheduleId);
+    console.log("Esta es la capacidaaad"+chosenSchedule?.available_capacity)
+    if (chosenSchedule) {
+        setSelectedParkingInfo(prevInfo => ({
+            ...prevInfo,
+            capacity: chosenSchedule?.available_capacity
+        }));
+    }
+};
+
+
   // Cargar horarioss
   useEffect(() => {
     if (!selectedParking) return; // Si no hay un parqueo , no ejecutar
@@ -117,7 +133,7 @@ export const ReservationForm = () => {
         navigate("/reservaciones");
 
     } catch (error) {
-        setErrorMessage(error.message); 
+        setErrorMessage("¡Tenemos problemas para crear la reserva! Inténtalo más tarde."); 
     }
   };
 
@@ -188,7 +204,7 @@ export const ReservationForm = () => {
                     <select
                         className="form-control"
                         value={selectedSchedule}
-                        onChange={(e) => setSelectedSchedule(e.target.value)}
+                        onChange={handleScheduleChange}
                     >
                         <option value="">Selecciona un horario</option>
                         {schedules.map((schedule) => (
@@ -228,8 +244,9 @@ export const ReservationForm = () => {
                 </div>
             </div>
 
-            <button type="submit" className='btn btn-primary col-6 mt-5 mb-5'>Reservar</button>
+            <button type="submit" className='btn btn-primary col-6 mt-5 mb-5'>Reservar</button>           
             </form>
+            {errorMessage && <div className="alert alert-danger mt-3">{errorMessage}</div>}
     </div>
     </div>
   );

@@ -13,10 +13,10 @@ export const ConfirmationModal = ({handleCloseModal,handleDelete}) => {
                 </div>
                 <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>
-                    Cancelar
+                    Cerrar
                 </button>
                 <button type="button" className="btn btn-danger" onClick={handleDelete}>
-                    Eliminar
+                    Cancelar Reserva
                 </button>
                 </div>
             </div>

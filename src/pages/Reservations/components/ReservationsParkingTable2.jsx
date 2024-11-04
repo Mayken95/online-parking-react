@@ -4,7 +4,7 @@ import DataTable from 'react-data-table-component';
 
 import '../../../assets/styles/global.css';
 
-export const ReservationsParkingTable2 = ({ data, onDelete, openModal}) => {
+export const ReservationsParkingTable2 = ({ data, onDelete, openModal, onPaymentSuccess}) => {
 
   const { user } = useUser(); 
   const [selectedReservation, setSelectedReservation] = useState(null);
@@ -152,10 +152,10 @@ export const ReservationsParkingTable2 = ({ data, onDelete, openModal}) => {
   
       // Verifica si la respuesta es exitosa basándote en el código de estado
       if (response.status >= 200 && response.status < 300) {
-        alert('Pago realizado con éxito');
+        //alert('Pago realizado con éxito');
         setShowModal(false); // Cierra el modal
         setAmountToPay(null); // Limpia el monto
-        // Aquí podrías actualizar la tabla o realizar alguna otra acción
+        onPaymentSuccess();
       } else {
         console.error("Error al realizar el pago");
       }

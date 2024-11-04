@@ -20,3 +20,43 @@
   text-decoration: none;
   color:#ffffff;
 }
+
+.ddvZdT{
+  font-size: 0.95rem;
+  font-weight: bold;
+}
+
+.parking-schedules-datatable {
+  border: 1px solid #ccc; 
+  overflow: hidden; 
+}
+
+.parking-schedules-datatable .rdt_Table {
+  border: none; 
+}
+
+.parking-schedules-datatable .rdt_TableRow {
+  border-bottom: 1px solid #ccc; 
+}
+
+.parking-schedules-datatable .rdt_TableCell {
+  border-right: 1px solid #ccc; 
+}
+
+.parking-schedules-datatable .rdt_TableRow:last-child {
+  border-bottom: none;
+}
+
+.parking-schedules-datatable .rdt_TableCell:last-child,
+.parking-schedules-datatable .rdt_TableCol:last-child {
+  border-right: none;
+}
+
+.parking-schedules-datatable .rdt_TableHeader {
+  border-bottom: 1px solid #ccc; 
+}
+
+.parking-schedules-datatable .rdt_TableCol {
+  border-right: 1px solid #ccc;
+}
+
