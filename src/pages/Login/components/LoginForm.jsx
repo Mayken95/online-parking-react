@@ -26,7 +26,8 @@ export const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoginError(""); // Limpiar el estado del error al enviar nuevamente
-
+    setAuthToken(null);
+    localStorage.removeItem('authToken');
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/token-auth/`, {
         method: 'POST',
@@ -60,14 +61,20 @@ export const LoginForm = () => {
   useEffect(() => {
     if (responseData && Array.isArray(responseData) && responseData.length > 0 && authToken) {
       const userInfo = responseData[0];  
+      if(userInfo.groups[0]!==1 && userInfo.groups[0]!==2){
+        setAuthToken(null);
+        logoutUser();
+        setLoginError("No tienes permisos para acceder.")
+      }
       updateUser({
         id: userInfo.id,
         name: `${userInfo?.first_name} ${userInfo?.last_name}`,
         token: authToken,
         email: email,
-        role: ((userInfo.groups[0]==1||userInfo.groups[0]==undefined)? "user" : (userInfo.groups[0]==2 ? "adminParking" : "other") ),
+        role: ((userInfo.groups[0]==1)? "user" : (userInfo.groups[0]==2 ? "adminParking" : "other") ),
         loggedIn: true,
-      });      
+      });    
+      setFetchUserData(false);  
     }
   }, [responseData, authToken]);
 
@@ -80,6 +87,7 @@ export const LoginForm = () => {
       }
     }
   }, [user, authToken]);
+
   useEffect(() => {
     if (!authToken) {
       localStorage.removeItem('authToken');

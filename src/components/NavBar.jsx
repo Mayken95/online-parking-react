@@ -4,7 +4,13 @@ import { useUser } from '../hooks/useUser';
 import '../assets/styles/NavBar.css';
 
 export const NavBar = () => {
-  const { user } = useUser();
+  const { user , logoutUser} = useUser();
+
+  const handleClickLogout = () => {
+    localStorage.removeItem('authToken');
+    logoutUser();
+  };
+
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
@@ -77,6 +83,7 @@ export const NavBar = () => {
             <li className="nav-item">
               <NavLink 
                 className={({ isActive }) => `nav-link ${ isActive ? 'active' : '' } fs-5 text-danger`}
+                onClick={handleClickLogout}
                 to="/">
                 Cerrar Sesión
               </NavLink>
